@@ -1,37 +1,38 @@
 package cars;
 
 public class Car {
-    private Motor motor;
-    private Dashboard dashboard;
+    private final IMotor motor;
+    private final IDashboard dashboard;
 
-    public Car(Motor motor, Dashboard dashboard) {
+    public Car(IMotor motor, IDashboard dashboard) {
         this.motor = motor;
         this.dashboard = dashboard;
     }
 
     public void accelerate() {
-        this.motor.rpm += 100;
-        this.motor.speed += 10;
-        this.motor.oilLevel -= 0.1;
-        this.motor.gasLevel -= 0.5;
+        motor.accelerate(10, 100);
+        motor.consumeOil(0.1f);
+        motor.consumeGas(0.5f);
     }
 
     public void stop() {
-        this.motor.rpm -= 0;
-        this.motor.speed -= 0;
-        this.motor.oilLevel -= 0.1;
-        this.motor.gasLevel -= 0;
+        motor.stop();
+        motor.consumeOil(0.1f); // Simula consumo de aceite al detenerse.
+    }
+
+    public void displayDashboard() {
+        dashboard.display();
     }
 
     public static void main(String[] args) {
-        Motor motor = new Motor();
-        Dashboard dashboard = new Dashboard(motor);
+        IMotor motor = new Motor();
+        IDashboard dashboard = new Dashboard(motor);
         Car car = new Car(motor, dashboard);
 
-        dashboard.printDashboard();
+        car.displayDashboard();
         car.accelerate();
-        dashboard.printDashboard();
+        car.displayDashboard();
         car.stop();
-        dashboard.printDashboard();
+        car.displayDashboard();
     }
 }
