@@ -1,19 +1,19 @@
 package cars;
 
-public class Dashboard {
+public class Dashboard implements IDashboard {
+    private final IMotor motor;
 
-    Motor motor;
-
-    public Dashboard(Motor motor) {
+    public Dashboard(IMotor motor) {
         this.motor = motor;
     }
 
-    public void printDashboard() {
+    @Override
+    public void display() {
         System.out.println("--------------------------------");
         System.out.println("DASHBOARD:");
-        System.out.println("\t RPM: " + this.motor.rpm);
-        System.out.println("\t Speed: " + this.motor.speed);
-        System.out.println("\t Oil level: " + this.motor.oilLevel);
-        System.out.println("\t Gas level: " + this.motor.gasLevel);
+        System.out.println("\t RPM: " + motor.getRpm());
+        System.out.println("\t Speed: " + motor.getSpeed());
+        System.out.println("\t Oil level: " + motor.getOilLevel());
+        System.out.println("\t Gas level: " + motor.getGasLevel());
     }
 }
